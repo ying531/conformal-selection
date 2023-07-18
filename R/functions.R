@@ -89,3 +89,37 @@ weighted_BH <- function(cal.score, test.score, cal.weight, test.weight, q=0.1){
   }
   return(Rej)
 }
+
+
+#' @import stats
+#' @title Conformalized Selection
+#'
+#' @description This function implements the Conformalized Selection algorithm (WCS without weights, for i.i.d. or exchangeable data). It takes evaluated scores for the calibration and test data as input, and returns the index set of the selected units with a specified FDR nominal level.
+#' @param cal.score Vector of scores V_i = V(X_i,Y_i) for calibration data
+#' @param test.score Vector of scores hat{V}_{n+j} = V(X_{n+j}, c_{n+j}) for test data
+#' @param q Nominal FDR level, default at 0.1
+#' @return A vector of indices in the test data that are selected as 'promising candidates'
+#' @export
+Conformal_select <- function(cal.score, test.score, q){
+  nt = length(test.score)
+  n = length(cal.score)
+  # compute conformal p-values
+  test.pvals = rep(0, nt)
+  for (i in 1:nt){
+    test.pvals[i] = (sum(cal.score < test.score[i]) + runif(1) * (1+sum(cal.score == test.score[i])) ) / (n+1)
+  }
+  # BH
+  test.all = data.frame("pvals" = test.pvals, "id" = 1:nt)
+  test.all = test.all[order(test.all$pvals),]
+  below.id = which(test.all$pvals <= (1:nt)*q/nt)
+  if (length(below.id) >0){
+    if.below = max(below.id)
+    selected = test.all[1:if.below,]
+    Rej = selected$id
+  }else{
+    Rej = c()
+  }
+
+  return(Rej)
+
+}
