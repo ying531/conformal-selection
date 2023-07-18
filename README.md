@@ -88,7 +88,7 @@ This runs all configurations of the settings with seeds from 1 to 100, and saves
 
 
 
-### 3. Outlier detection
+### 2. Outlier detection
 
 `experiments/outlier_detection` hosts the reproduction code for simulations and real data experiments in Section 6 of the paper for outlier detection. These experiments are currently implemented in Python for the convenience of training machine learning models. 
 
