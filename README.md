@@ -57,7 +57,7 @@ This R package `ConfSelect` implements three procedures/functions for selecting 
 
 The folder `/experiments/` hosts reproduction code for numerical experiments in our paper. 
 
-#### 1. Individual treatment effects
+### 1. Individual treatment effects
 
 `/experiments/individual_TE/` reproduces the simulations and real data analysis in Section 4 of our paper. It has two sub-folders:
 
@@ -83,14 +83,12 @@ sh run-batch.sh
 
 This runs all configurations of the settings with seeds from 1 to 100, and saves the results for each run. 
 
-
-
-#### 2. Drug discovery 
+ 
 
 
 
 
-#### 3. Outlier detection
+### 3. Outlier detection
 
 `experiments/outlier_detection` hosts the reproduction code for simulations and real data experiments in Section 6 of the paper for outlier detection. These experiments are currently implemented in Python for the convenience of training machine learning models. 
 
