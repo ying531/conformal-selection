@@ -2,7 +2,7 @@
 <p> conformal-selection
 </h1>
 
-This repository hosts the R package, `ConfSelect`, that implements the Weighted Conformalized Selection procedure in our paper [Model-free selective inference under covariate shift via weighted conformal p-values](). It also hosts reproduction code for numerical experiments in the paper. 
+This repository hosts the R package, `ConfSelect`, that implements the Weighted Conformalized Selection procedure in our paper [Model-free selective inference under covariate shift via weighted conformal p-values](https://arxiv.org/abs/2307.09291). It also hosts reproduction code for numerical experiments in the paper. 
 
 
 ## Installing R package `ConfSelect`
@@ -125,8 +125,8 @@ Please use the following bibliography for citing our method and package.
 ```
 @article{jin2023model,
   title={Model-free selective inference under covariate shift via weighted conformal p-values},
-  author={Jin, Ying and Cand{\`e}s, Emmanuel J},
-  journal={arXiv preprint arXiv:2210.01408},
+  author={Jin, Ying and Cand\`es, Emmanuel J},
+  journal={arXiv preprint arXiv:2307.09291},
   year={2023}
 }
 ```
