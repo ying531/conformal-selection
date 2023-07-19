@@ -66,6 +66,8 @@ The folder `/experiments/` hosts reproduction code for numerical experiments in 
 
 To run the scripts in the two folders, the R package `grf` needs to be installed. 
 
+**Simulations.** 
+
 The simulation script is in `simu.R`. It takes three inputs, `--rho.id` for whether the features are corrlated (=2) or not (=1), `--setting` in 1-9 for the data generating process, and `--seed` for the random seed. Here, `setting = 1,2,3` corresponds to Setting 1 with independent, positive, negative coupling in Figure 2,3,4 in our paper, and so on for `setting = 4,5,6` for Setting 2, and `setting = 7,8,9` for Setting 3. For a single run with `Setting 1.corr` and `indep. coupl.` in our paper, run the following in command line:
 
 ```bash
@@ -83,12 +85,41 @@ sh run-batch.sh
 
 This runs all configurations of the settings with seeds from 1 to 100, and saves the results for each run. 
 
- 
+**Real data analysis**. 
+
+`./realdata/analysis.R` reproduces the two plots in Section 4.5 of the paper. 
+
+### 2. Drug discovery 
+
+`experiments/drug_discovery` hosts the reproduction code for exepriments in Section 5 of the paper for drug discoveries, incluidng drug property prediction (DPP) and drug-target interaction prediction (DTI). These experiments are implemented in Python for the convenience of using existing pipelines. 
+
+To run these experiments, python pacakges `DeepPurpose`, `numpy`, `pandas` need to be installed.
+
+**Drug property prediction (DPP)**. 
+
+The python script `DPP.py` provides the loaded dataset and neural network model used in Section 5.1 of our paper, and the code we use to split data and run our procedures. It takes two inputs, `--seed` for random seed, and `--q` for nominal FDR level (input 1 for FDR level 0.1, etc.). To conduct one run of model training and selection at FDR level 0.5 with random seed 3, for instance, run the following command:
+
+```bash
+cd experiments/drug_discovery
+Python3 DPP.py 3 5
+```
+
+Running this code may take a few munites. It will output the selection results from weighted BH and Weighted Conformalized Selection (with scores res, clip, sub, and all three pruning methods) in a new folder `./DPP_results/`. Batch submission can be similarly configured as for other experiments. 
+
+**Drug-target interaction (DTI).** 
+
+The python script `DTI.py` provides the loaded dataset and neural network model we use in Section 5.2 of our paper, and the code for splitting data and running our procedures. It takes three inputs, `--seed` for random seed, `--q` for FDR level (input 1 for FDR target 0.1, etc.), and `--qpop` for the population quantile in constructing the thresholds c_n+j (set `--qpop=5` means q_pop = 0.5 in our paper), which takes values in `2, 5, 7, 8, 9`. For instance, to run the script for random seed 1, FDR target 0.5, and q_pop = 0.7, run the following:
+
+```bash
+cd experiments/drug_discovery
+Python3 DIT.py 1 5 7
+```
+
+Running this code typically takes tens of minutes. It outputs the selection results for the same procedures as DPP in a new folder `./DTI_results/`. Batch submission can  be similarly configured.
 
 
 
-
-### 2. Outlier detection
+### 3. Outlier detection
 
 `experiments/outlier_detection` hosts the reproduction code for simulations and real data experiments in Section 6 of the paper for outlier detection. These experiments are currently implemented in Python for the convenience of training machine learning models. 
 
@@ -96,6 +127,8 @@ This runs all configurations of the settings with seeds from 1 to 100, and saves
 - `./realdata/` hosts the dataset and reproduction code for experiments in Section 6.2. 
 
 To run these experiments, python packages `numpy`, `pandas`, `scikit-learn` need to be installed.
+
+**Simulations.** 
 
 The simulation script is in `./simulations/simu.py`. It takes three arguments, `--sig_id` for signal strength id from 1 to 9 (which corresponds to signal strength from 1 to 4 in our paper), `--out_prop` for the proportion of outliers in the test data from 1 to 5 (which corresponds to outlier prop from 0.1 to 0.5 in our paper), and `--seed` for the random seed. For a single run with signal strength 2.5, outlier proportion 0.2, and seed 1 in our paper, run the following in command line:
 
@@ -106,6 +139,8 @@ Python3 simu.py 5 2 1
 
 Each run takes a couple of minutes to complete. You can also submit batched jobs in parallel by running `sh run-batch.sh` in this folder. 
 
+
+**Real data.** 
 
 The real data experiment script is in `./realdata/bank.py`, and the data is in `./realdata/bank.csv` which was downloaded from public resources. The script takes two arguments, `--q` for the nominal FDR level (the input is always an integer, e.g., set it as `1` for nominal level 0.1), and `--seed` for the random seed. To execute one run of our real data experiment at FDR level q=0.2 and random seed 16, run the following commands:
 
