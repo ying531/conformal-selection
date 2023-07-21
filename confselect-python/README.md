@@ -99,13 +99,13 @@ test_scores = c_test  - rf.predict(Xtest)
 # BH with weighted conformal p-values
 wBH, w_pvals = weighted_BH(calib_scores, calib_weights, test_scores, test_weights, q = 0.1)
 # WCS with heterogeneous pruning 
-WCS_hete, w_pvals = weighted_BH(calib_scores, calib_weights, 
+WCS_hete, w_pvals = weighted_CS(calib_scores, calib_weights, 
                                 test_scores, test_weights, q = 0.1, rand = 'hete')
 # WCS with homogenous pruning 
-WCS_homo, w_pvals = weighted_BH(calib_scores, calib_weights, 
+WCS_homo, w_pvals = weighted_CS(calib_scores, calib_weights, 
                                 test_scores, test_weights, q = 0.1, rand = 'homo')
 # WCS with deterministic pruning 
-WCS_dtm, w_pvals = weighted_BH(calib_scores, calib_weights, 
+WCS_dtm, w_pvals = weighted_CS(calib_scores, calib_weights, 
                                 test_scores, test_weights, q = 0.1, rand = 'dtm')
 ```
 
